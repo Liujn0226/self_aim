@@ -1,0 +1,58 @@
+# ============================================================================
+# 校内赛标定配置（供 calib_capture / calib_camera / calib_handeye 使用）
+#
+# 为什么不直接用 configs/calibration.yaml：
+#   原文件里是 CBoard 的 CAN 参数（quaternion_canid 等），本赛制走 USB CDC，
+#   所以单独建这一份，保留原文件不动。
+#
+# 工作流：
+#   1. calib_capture  读本文件 -> 采集 calib_imgs/（.jpg 与 .txt 成对）
+#   2. calib_camera   读本文件 -> 算内参，把终端输出的两行粘贴回本文件
+#   3. calib_handeye  读本文件 + calib_imgs/ -> 算外参，粘贴到 contest.yaml
+#
+# ★ 注意顺序：calib_handeye 需要 camera_matrix / distort_coeffs，
+#   所以必须先跑完第 2 步并把结果填回本文件，再跑第 3 步。
+# ============================================================================
+
+#####-----标定板-----#####
+# pattern_cols / pattern_rows 是标定板上"点"的个数，不是外框尺寸：
+# 11 列 8 行 = 80 个点。
+# 圆点板填圆点数量；棋盘格填内部角点数量。
+pattern_cols: 11
+pattern_rows: 8
+# 相邻两点的实际间距，单位 mm。
+# ★ 必须用卡尺实测，不要相信印刷标称值（印刷和热胀冷缩都会差）。
+center_distance_mm: 30
+# circle     = 对称圆点阵（原工程实现，cv::findCirclesGrid）
+# chessboard = 棋盘格（cv::findChessboardCorners）
+pattern_type: chessboard
+
+#####-----相机-----#####
+camera_name: "hikrobot"
+exposure_ms: 2
+gain: 16
+vid_pid: "2bdf:0001"
+
+#####-----通信（calib_capture 读云台角度需要）-----#####
+# 内参标定不需要云台，但外参标定必须同时记录云台角度。
+com_port: "/dev/ttyACM0"
+baudrate: 115200
+rx_timeout_ms: 20
+default_bullet_speed: 22.0
+
+#####-----内参（由 calib_camera 输出填入）-----#####
+# ★ 下面是占位值，必须替换成你自己标出来的结果。
+# 重投影误差: 未标定
+camera_matrix: [1810.71103612, 0, 710.209428178, 0, 1811.87241949, 541.525037924, 0, 0, 1]
+
+distort_coeffs: [-0.0701983164164, 0.116281748818, 0.000236384441345, 1.46352889222e-05, 0]
+
+#####-----R_gimbal2imubody-----#####
+# 新协议没有 IMU、没有四元数，本参数不参与任何运算。
+# 仅为兼容 calib_handeye 的读取流程而保留，填单位阵即可。
+R_gimbal2imubody: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+
+#####-----外参-----#####
+# 不需要预先填写；calib_handeye 会把结果打印到终端，再粘到 contest.yaml。
+R_camera2gimbal: [-0.05693266831, -0.00852297146166, 0.998341640039, 0.998119211697, -0.0232532652068, 0.0567214677086, 0.0227312674722, 0.999693275267, 0.00983081199176]
+t_camera2gimbal: [0.115847860934, 0.0150495510697, 0.044444836278]

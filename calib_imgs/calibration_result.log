@@ -1,0 +1,29 @@
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/1.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/2.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/3.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/4.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/5.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/6.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/7.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/8.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/9.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/10.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/11.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/12.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/13.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/14.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/15.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/16.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/17.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/18.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/19.jpg
+[success] /home/ljn/文档/sp_vision_25-main/calib_imgs/20.jpg
+
+===== 复制下面两行到 yaml =====
+# 重投影误差: 0.3273px
+camera_matrix: [1810.71103612, 0, 710.209428178, 0, 1811.87241949, 541.525037924, 0, 0, 1]
+distort_coeffs: [-0.0701983164164, 0.116281748818, 0.000236384441345, 1.46352889222e-05, 0]
+================================
+提示：标定完成后，请把上面两行填回 configs/calibration_contest.yaml，
+      再运行 calib_handeye 计算外参。
+
