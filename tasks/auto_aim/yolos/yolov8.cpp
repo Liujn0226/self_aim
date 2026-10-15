@@ -236,11 +236,11 @@ cv::Point2f YOLOV8::get_center_norm(const cv::Mat & bgr_img, const cv::Point2f &
 cv::Mat YOLOV8::get_pattern(const cv::Mat & bgr_img, const Armor & armor) const
 {
   // 延长灯条获得装甲板角点
-  // 1.125 = 0.5 * armor_height / lightbar_length = 0.5 * 126mm / 56mm
-  auto tl = (armor.points[0] + armor.points[3]) / 2 - (armor.points[3] - armor.points[0]) * 1.125;
-  auto bl = (armor.points[0] + armor.points[3]) / 2 + (armor.points[3] - armor.points[0]) * 1.125;
-  auto tr = (armor.points[2] + armor.points[1]) / 2 - (armor.points[2] - armor.points[1]) * 1.125;
-  auto br = (armor.points[2] + armor.points[1]) / 2 + (armor.points[2] - armor.points[1]) * 1.125;
+  // 1.125 = 0.5 * armor_height / lightbar_length = 0.5 * 140mm / 125mm
+  auto tl = (armor.points[0] + armor.points[3]) / 2 - (armor.points[3] - armor.points[0]) * 0.56;
+  auto bl = (armor.points[0] + armor.points[3]) / 2 + (armor.points[3] - armor.points[0]) * 0.56;
+  auto tr = (armor.points[2] + armor.points[1]) / 2 - (armor.points[2] - armor.points[1]) * 0.56;
+  auto br = (armor.points[2] + armor.points[1]) / 2 + (armor.points[2] - armor.points[1]) * 0.56;
 
   auto roi_left = std::max<int>(std::min(tl.x, bl.x), 0);
   auto roi_top = std::max<int>(std::min(tl.y, tr.y), 0);
